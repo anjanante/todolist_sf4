@@ -21,14 +21,21 @@ class ListingController extends Controller
         $this->em = $em;
     }
     /**
-     * @Route("/", name="listing_all")
+     * @Route("/{listingId}", name="listing_show", requirements={"listingId"="\d+"})
      */
-    public function list()
+    public function show($listingId = null)
     {
         $listings = $this->em->getRepository(Listing::class)->findAll();
-        return $this->render('listing/index.html.twig', [
-            'listing' => $listings
-        ]);
+
+        if (!empty($listingId)) {
+            $currentListing = $this->em->getRepository(Listing::class)->find($listingId);
+        }
+
+        if (empty($currentListing)) {
+            $currentListing = current($listings);
+        }
+
+        return $this->render("listing/index.html.twig", ['listings' => $listings, 'currentListing' => $currentListing]);
     }
 
     /**
@@ -39,7 +46,7 @@ class ListingController extends Controller
         $name = $request->get('name');
         if(empty($name)){
             $this->addFlash('warning', "List name is empty");
-            return $this->redirectToRoute('listing_all');
+            return $this->redirectToRoute('listing_show');
         }
         $listing = new Listing();
         $listing->setName($name);
@@ -51,6 +58,33 @@ class ListingController extends Controller
             $this->addFlash('warning', "$name already exist");
         }
      
-        return $this->redirectToRoute('listing_all');
+        return $this->redirectToRoute('listing_show');
+    }
+
+    /**
+     * @Route("/{listingId}/delete", name="listing_delete", requirements={"listingId"="\d+"})
+     */
+    public function delete($listingId)
+    {
+        $listing = $this->em->getRepository(Listing::class)->find($listingId);
+
+        if (empty($listing)) {
+            $this->addFlash(
+                "warning",
+                "Unable to delete list"
+            );
+        } else {
+            $this->em->remove($listing);
+            $this->em->flush();
+
+            $name = $listing->getName();
+
+            $this->addFlash(
+                "success",
+                "The list « $name » has been deleted"
+            );
+        }
+
+        return $this->redirectToRoute('listing_show');
     }
 }
