@@ -43,4 +43,28 @@ class TaskController extends Controller
             'listing' => $listing
         ]);
     }
+
+    /**
+     * @Route("/{taskId}/edit", name="edit", requirements={"taskId"="\d+"}))
+     */
+    public function edit(Request $request, $listingId, $taskId)
+    {
+        $task = $this->em->getRepository(Task::class)->find($taskId);
+        if(empty($task)){
+            $this->addFlash('warning', "Task Empty, impossible to edit it");
+            return $this->redirectToRoute('listing_show', ['listingId' => $listingId]);
+        }
+        $form = $this->createForm(TaskType::class, $task);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()){
+            $this->em->flush();
+            $name = $task->getName();
+            $this->addFlash('success', "Task $name Edited");
+            return $this->redirectToRoute('listing_show', ['listingId' => $listingId]);
+        }
+        return $this->render('task/create.html.twig', [
+            'form' => $form->createView(),
+            'listing' => $task->getListing()
+        ]);
+    }
 }

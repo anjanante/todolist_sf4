@@ -31,7 +31,7 @@ class TaskType extends AbstractType
                 'attr' => [
                     'class' => 'form-control input-inline datetimepicker',
                     'html5' => false
-                ]
+                ],
             ])
             ->add('reminder', NumberType::class, [
                 'label' => 'Reminder (minutes)',
