@@ -4,6 +4,8 @@ namespace App\Form;
 
 use App\Entity\Task;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -20,6 +22,13 @@ class TaskType extends AbstractType
             ])
             ->add('description', TextareaType::class, [
                 'label' => 'description',
+                'required' => false
+            ])
+            ->add('dueDate', DateTimeType::class, [
+                'label' => 'Expiry date'
+            ])
+            ->add('reminder', NumberType::class, [
+                'label' => 'Reminder (minutes)',
                 'required' => false
             ])
             ->add('save', SubmitType::class)
