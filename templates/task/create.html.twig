@@ -5,13 +5,16 @@
 {% endblock %}
 
 {% block body %}
+    <div class="col-md-5 list mb-1">
+        <h3>L: {{ listing.name }}</h3>
+    </div>
     {{ form_start(form, {'attr': {'style': 'width:100%;'}}) }}
         {{ form_widget(form) }}
     {{ form_end(form) }}
 {% endblock %}
 
 {% block javascripts %}
-    {# {{ parent() }}
+    {{ parent() }}
     <script type="text/javascript">
         $(function() {
             $('.datetimepicker').datetimepicker({
@@ -29,5 +32,5 @@
                 sideBySide: true
             })
         })
-    </script> #}
+    </script>
 {% endblock %}

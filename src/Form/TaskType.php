@@ -25,7 +25,13 @@ class TaskType extends AbstractType
                 'required' => false
             ])
             ->add('dueDate', DateTimeType::class, [
-                'label' => 'Expiry date'
+                'label' => 'Expiry date',
+                'required' => false,
+                'widget' => 'single_text',
+                'attr' => [
+                    'class' => 'form-control input-inline datetimepicker',
+                    'html5' => false
+                ]
             ])
             ->add('reminder', NumberType::class, [
                 'label' => 'Reminder (minutes)',
