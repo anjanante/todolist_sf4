@@ -48,7 +48,7 @@
                     </form>
                 </div>
             </nav>
-            {# <div class="row px-4 mt-3">
+            <div class="row px-4 mt-3">
                 {% if currentListing.tasks | length %}
                     <table class="table table-striped">
                         {% for task in currentListing.tasks %}
@@ -57,21 +57,21 @@
                                     <a href="#">{{ task.name }}</a>
                                 </td>
                                 <td>
-                                    <a href="{{ path('task_edit', {'listingId': currentListing.id, 'taskId': task.id}) }}">
+                                    {# <a href="{{ path('task_edit', {'listingId': currentListing.id, 'taskId': task.id}) }}"> #}
                                         <i class="fa fa-edit"></i>
-                                    </a>
-                                    <a href="{{ path('task_delete', {'listingId': currentListing.id, 'taskId': task.id}) }}">
+                                    {# </a> #}
+                                    {# <a href="{{ path('task_delete', {'listingId': currentListing.id, 'taskId': task.id}) }}"> #}
                                         <i class="fa fa-minus"></i>
-                                    </a>
+                                    {# </a> #}
                                 </td>
                             </tr>
                         {% endfor %}
                     </table>
                 {% else %}
-                    <h5 class="pt-3">Pas de tâche existante</h5>
-                    <p class="pt-3">Vous pouvez créer une nouvelle tâche en cliquant sur le bouton <i class="fa fa-plus"></i></p>
+                    <h5 class="pt-3">No task exist</h5>
+                    <p class="pt-3">You can create a new task on click on the button <i class="fa fa-plus"></i></p>
                 {% endif %}
-            </div> #}
+            </div>
         {% else %}
             <h5 class="pt-3">No list existing</h5>
             <p class="pt-3">
