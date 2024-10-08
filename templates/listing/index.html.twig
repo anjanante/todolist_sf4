@@ -34,12 +34,12 @@
                 <a class="navbar-brand" href="#">{{ currentListing.name }}</a>
                 <div>
                     <form class="form-inline">
-                        {# <a href="{{ path('task_create', {'listingId' : currentListing.id }) }}">
+                        <a href="{{ path('task_create', {'listingId' : currentListing.id }) }}">
                             <button class="btn btn-outline-primary" type="button">
                                 <i class="fa fa-plus"></i>
                             </button>
                         </a>
-                        &nbsp; #}
+                        &nbsp;
                         <a href="{{ path('listing_delete', {'listingId': currentListing.id}) }}">
                             <button class="btn btn-outline-danger" type="button">
                                 <i class="fa fa-trash"></i>
