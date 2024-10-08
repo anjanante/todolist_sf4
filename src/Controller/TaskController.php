@@ -67,4 +67,30 @@ class TaskController extends Controller
             'listing' => $task->getListing()
         ]);
     }
+
+    /**
+     * @Route("/{taskId}/delete", name="delete", requirements={"taskId"="\d+"})
+     */
+    public function delete($listingId, $taskId)
+    {
+        $task = $this->em->getRepository(Task::class)->find($taskId);
+
+        if (empty($task)) {
+            $this->addFlash(
+                "warning",
+                "Unable to delete task"
+            );
+        } else {
+            $this->em->remove($task);
+            $this->em->flush();
+
+            $name = $task->getName();
+            $this->addFlash(
+                "success",
+                "The task « $name » has been deleted"
+            );
+        }
+
+        return $this->redirectToRoute('listing_show', ['listingId' => $listingId]);
+    }
 }
