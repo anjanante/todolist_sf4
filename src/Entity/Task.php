@@ -48,6 +48,11 @@ class Task
      */
     private $reminder;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $reminderDone = false;
+
     public function getId()
     {
         return $this->id;
@@ -109,6 +114,18 @@ class Task
     public function setReminder(?int $reminder): self
     {
         $this->reminder = $reminder;
+
+        return $this;
+    }
+
+    public function isReminderDone(): ?bool
+    {
+        return $this->reminderDone;
+    }
+
+    public function setReminderDone(?bool $reminderDone): self
+    {
+        $this->reminderDone = $reminderDone;
 
         return $this;
     }

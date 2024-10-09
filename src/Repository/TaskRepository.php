@@ -19,22 +19,21 @@ class TaskRepository extends ServiceEntityRepository
         parent::__construct($registry, Task::class);
     }
 
-//    /**
-//     * @return Task[] Returns an array of Task objects
-//     */
-    /*
-    public function findByExampleField($value)
+   /**
+    * @return Task[] Returns an array of Task objects
+    */
+    public function findAllToRemind(\DateTime $dateTime)
     {
         return $this->createQueryBuilder('t')
-            ->andWhere('t.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('t.id', 'ASC')
-            ->setMaxResults(10)
+            ->andWhere('t.reminderDone = false')
+            ->andWhere('SUBTIME(t.dueDate, CONCAT(\'0:\', t.reminder, \':0\')) <= :datetime')
+            ->setParameter('datetime', $dateTime)
+            ->orderBy('t.dueDate', 'DESC')
             ->getQuery()
             ->getResult()
         ;
     }
-    */
+  
 
     /*
     public function findOneBySomeField($value): ?Task
