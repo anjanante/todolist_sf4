@@ -10,11 +10,15 @@ class Reminder
     private $em;
     private $template;
     private $mailer;
+    private $reminderEmailFrom;
+    private $reminderEmailTo;
 
-    public function __construct(EntityManagerInterface $em, \Twig_Environment $template, \Swift_Mailer $mailer){
+    public function __construct(EntityManagerInterface $em, \Twig_Environment $template, \Swift_Mailer $mailer, $reminderEmailFrom, $reminderEmailTo){
         $this->em = $em;
         $this->template = $template;
         $this->mailer = $mailer;
+        $this->reminderEmailFrom = $reminderEmailFrom;
+        $this->reminderEmailTo = $reminderEmailTo;
     }
     
     public function remind()
@@ -23,8 +27,8 @@ class Reminder
         
         foreach ($tasks as $task) {
            $message = (new \Swift_Message("A task must be realised"))
-                ->setFrom("nantedevy@todolistSf.com")
-                ->setTo("nantedevy@gmail.com")
+                ->setFrom($this->reminderEmailFrom)
+                ->setTo($this->reminderEmailTo)
                 ->setBody(
                     $this->template->render(
                         'emails/reminder.html.twig',

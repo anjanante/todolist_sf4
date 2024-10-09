@@ -21,12 +21,12 @@
 
             <div class="row mt-5">
                 {% for message in app.flashes('success') %}
-                    <div class="alert alert-success">
+                    <div class="col-md-12 alert alert-success text-center">
                         {{ message }}
                     </div>
                 {% endfor %}
                  {% for message in app.flashes('warning') %}
-                    <div class="alert alert-warning">
+                    <div class="col-md-12 alert alert-danger text-center">
                         {{ message }}
                     </div>
                 {% endfor %}
