@@ -24,6 +24,8 @@ class TaskRepository extends ServiceEntityRepository
     */
     public function findAllToRemind(\DateTime $dateTime)
     {
+        dump($dateTime);
+        
         return $this->createQueryBuilder('t')
             ->andWhere('t.reminderDone = false')
             ->andWhere('SUBTIME(t.dueDate, CONCAT(\'0:\', t.reminder, \':0\')) <= :datetime')
